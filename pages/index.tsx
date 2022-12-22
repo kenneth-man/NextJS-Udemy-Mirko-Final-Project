@@ -6,8 +6,17 @@ const HomePage = (): JSX.Element => {
 			<Head>
 				<title>Next Shop</title>
 			</Head>
-			<main>
-				<h1>Next Shop</h1>
+			<main
+				className='p-4 space-y-4'
+			>
+				<h1
+					className='text-2xl'
+				>
+					Next Shop
+				</h1>
+				<p>
+					TODO
+				</p>
 			</main>
 		</>
 	)
