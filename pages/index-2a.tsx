@@ -1,4 +1,5 @@
-// Option 2: fetch products on the client side with 'useEffect'
+// Option 2a: fetch products on the client side with 'useEffect'
+// directly from an external API
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { getProducts } from '../lib/products';

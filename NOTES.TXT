@@ -3,3 +3,4 @@ Server side rendering VS client side rendering
 - Client side rendering guarantees data shown is up to date, whereas static server side html files may not be (if CMS data changes, static files will not be updated)
 - Server side rendering contains all the data in html, whereas client side needs to hydrate; worse SEO (e.g. will need to execute js to populate an empty list element)
 - Server side rendering CMS doesn't need to be public; for client side, the CMS it needs to be public as it will be accessed when components mount (in useEffect)
+- Client side fetching from CMS means that we may be getting extra data we don't actually need; Server side we can choose the data we want then pass as props (better performance not dealing with large data objects)
