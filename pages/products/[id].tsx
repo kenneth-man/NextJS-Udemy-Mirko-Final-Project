@@ -4,6 +4,7 @@ import {
 	GetStaticProps,
 	GetStaticPaths
 } from 'next';
+import { ApiError } from 'next/dist/server/api-utils';
 import { ParsedUrlQuery } from 'querystring';
 import { HeadTag } from '../../components';
 import { getProducts, getProduct } from '../../lib/products';
@@ -18,6 +19,7 @@ interface IProductPageProps {
 }
 
 // define the possible routes for this dynamic route '/products/:id'
+// runs at build time
 export const getStaticPaths: GetStaticPaths = async (): Promise<GetStaticPathsResult<IProductPageParams>> => {
 	const products: IProductProps[] = await getProducts();
 	const ids: string[] = products.map((curr: IProductProps) => String(curr.id));
@@ -28,18 +30,30 @@ export const getStaticPaths: GetStaticPaths = async (): Promise<GetStaticPathsRe
 				id: curr
 			}
 		})),
-		fallback: false
+		fallback: 'blocking'
 	}
 }
 
+// runs at build time
 export const getStaticProps: GetStaticProps = async ({ params }): Promise<GetStaticPropsResult<IProductPageProps>> => {
-	const id: string | string[] | undefined = (params as ParsedUrlQuery).id;
-	const product: IProductProps = await getProduct(Number(id));
+	try {
+		const id: string | string[] | undefined = (params as ParsedUrlQuery).id;
+		const product: IProductProps = await getProduct(Number(id));
 
-	return {
-		props: {
-			product
+		return {
+			props: {
+				product
+			}
 		}
+	} catch(error: any) {
+		if (error.status === 404) {
+			// nextjs recognizes this object flag to show it's 404 page
+			return {
+				notFound: true
+			}
+		}
+
+		throw error;
 	}
 }
 

@@ -1,6 +1,6 @@
 // Option 2b: fetch products on the client side with 'useEffect'
-// from an interanl API route
-import Head from 'next/head';
+// from an internal API route
+import { HeadTag } from '../components';
 import { useEffect, useState } from 'react';
 import { IProductProps } from '../models/interfaces';
 
@@ -17,9 +17,11 @@ const HomePage = (): JSX.Element => {
 
 	return (
 		<>
-			<Head>
-				<title>Next Shop</title>
-			</Head>
+			<HeadTag
+				title="Next Shop"
+				name="description"
+				content="This is the home page for Next Shop"
+			/>
 			<main
 				className='p-4 space-y-4'
 			>

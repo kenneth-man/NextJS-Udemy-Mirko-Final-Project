@@ -1,5 +1,4 @@
 // using option 1b in 'index-1b.tsx'
-import Head from 'next/head';
 import Link from 'next/link';
 import { HeadTag } from '../components';
 import { GetStaticPropsResult } from 'next';

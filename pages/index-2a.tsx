@@ -1,6 +1,6 @@
 // Option 2a: fetch products on the client side with 'useEffect'
 // directly from an external API
-import Head from 'next/head';
+import { HeadTag } from '../components';
 import { useEffect, useState } from 'react';
 import { getProducts } from '../lib/products';
 import { IProductProps } from '../models/interfaces';
@@ -8,20 +8,20 @@ import { IProductProps } from '../models/interfaces';
 const HomePage = (): JSX.Element => {
 	const [products, setProducts]: [IProductProps[], (arg: IProductProps[]) => void] = useState<IProductProps[]>([]);
 
-	const updateProducts = async (): Promise<void> => {
-		const productsToUpdate: IProductProps[] = await getProducts();
-		setProducts(productsToUpdate);
-	}
-
 	useEffect(() => {
-		updateProducts();
+		(async () => {
+			const productsToUpdate: IProductProps[] = await getProducts();
+			setProducts(productsToUpdate);
+		})();
 	}, []);
 
 	return (
 		<>
-			<Head>
-				<title>Next Shop</title>
-			</Head>
+			<HeadTag
+				title="Next Shop"
+				name="description"
+				content="This is the home page for Next Shop"
+			/>
 			<main
 				className='p-4 space-y-4'
 			>

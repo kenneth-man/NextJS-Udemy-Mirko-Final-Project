@@ -1,6 +1,6 @@
 // Option 1b: fetch products on the server side with Incremental Static Regeneration ISR
 // and with 'getStaticProps' and pre rendering
-import Head from 'next/head';
+import { HeadTag } from '../components';
 import { GetStaticPropsResult } from 'next';
 import { getProducts } from '../lib/products';
 import { IProductProps, IHomePageProps } from '../models/interfaces';
@@ -19,9 +19,11 @@ export const getStaticProps = async (): Promise<GetStaticPropsResult<IHomePagePr
 const HomePage = ({ products }: IHomePageProps): JSX.Element => {
 	return (
 		<>
-			<Head>
-				<title>Next Shop</title>
-			</Head>
+			<HeadTag
+				title="Next Shop"
+				name="description"
+				content="This is the home page for Next Shop"
+			/>
 			<main
 				className='p-4 space-y-4'
 			>

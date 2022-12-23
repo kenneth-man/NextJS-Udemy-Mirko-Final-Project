@@ -1,6 +1,6 @@
 // Option 1c: fetch products on the server side with 'getServerSideProps' and pre rendering
 // in production, 'getServerSideProps' is called everytime this page is requested
-import Head from 'next/head';
+import { HeadTag } from '../components';
 import { getProducts } from '../lib/products';
 import { IProductProps } from '../models/interfaces';
 
@@ -21,9 +21,11 @@ const HomePage = ({ products }: {
 }): JSX.Element => {
 	return (
 		<>
-			<Head>
-				<title>Next Shop</title>
-			</Head>
+			<HeadTag
+				title="Next Shop"
+				name="description"
+				content="This is the home page for Next Shop"
+			/>
 			<main
 				className='p-4 space-y-4'
 			>
