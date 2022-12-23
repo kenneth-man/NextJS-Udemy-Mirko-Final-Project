@@ -5,26 +5,28 @@ import {
 	GetStaticPaths
 } from 'next';
 import { ParsedUrlQuery } from 'querystring';
+import { HeadTag } from '../../components';
 import { getProducts, getProduct } from '../../lib/products';
 import { IProductProps } from '../../models/interfaces';
 
 interface IProductPageParams extends ParsedUrlQuery {
-	id: string; // ParsedUrlQuery index type required to be 'string | string[] | undefined'
+	id: string; // ParsedUrlQuery index type must be a string; 'string | string[] | undefined'
 }
 
 interface IProductPageProps {
 	product: IProductProps;
 }
 
+// define the possible routes for this dynamic route '/products/:id'
 export const getStaticPaths: GetStaticPaths = async (): Promise<GetStaticPathsResult<IProductPageParams>> => {
 	const products: IProductProps[] = await getProducts();
-	const ids: string[] = products.map((curr) => String(curr.id));
+	const ids: string[] = products.map((curr: IProductProps) => String(curr.id));
 
 	return {
-		paths: ids.map((curr) => ({
+		paths: ids.map((curr: string) => ({
 			params: {
 				id: curr
-			} as IProductPageParams
+			}
 		})),
 		fallback: false
 	}
@@ -41,13 +43,19 @@ export const getStaticProps: GetStaticProps = async ({ params }): Promise<GetSta
 	}
 }
 
-const ProductPage = ({ product: { id, title }}: IProductPageProps): JSX.Element => {
-	return (
+const ProductPage = ({ product: { id, title }}: IProductPageProps): JSX.Element => (
+	<>
+		<HeadTag
+			title="Product Page"
+			name="description"
+			content="This is the product page for an item in Next Shop"
+		/>
 		<main>
 			<h1>{title}</h1>
 			<p>{id}</p>
 		</main>
-	)
-}
+	</>
+		
+)
 
 export default ProductPage;

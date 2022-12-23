@@ -1,6 +1,6 @@
 import { IProductProps } from '../models/interfaces';
 
-const stripProduct = (product: any) => {
+const stripProduct = (product: any): IProductProps => {
 	const { id, title }: IProductProps = product;
 
 	return {

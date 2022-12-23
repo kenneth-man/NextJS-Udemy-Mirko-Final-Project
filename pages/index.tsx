@@ -1,6 +1,7 @@
 // using option 1b in 'index-1b.tsx'
 import Head from 'next/head';
 import Link from 'next/link';
+import { HeadTag } from '../components';
 import { GetStaticPropsResult } from 'next';
 import { getProducts } from '../lib/products';
 import { IProductProps, IHomePageProps } from '../models/interfaces';
@@ -16,38 +17,38 @@ export const getStaticProps = async (): Promise<GetStaticPropsResult<IHomePagePr
 	}
 }
 
-const HomePage = ({ products }: IHomePageProps): JSX.Element => {
-	return (
-		<>
-			<Head>
-				<title>Next Shop</title>
-			</Head>
-			<main
-				className='p-4 space-y-4'
+const HomePage = ({ products }: IHomePageProps): JSX.Element => (
+	<>
+		<HeadTag
+			title="Next Shop"
+			name="description"
+			content="This is the home page for Next Shop"
+		/>
+		<main
+			className='p-4 space-y-4'
+		>
+			<h1
+				className='text-2xl'
 			>
-				<h1
-					className='text-2xl'
-				>
-					Next Shop
-				</h1>
-				<ul>
-					{
-						products.map((curr: IProductProps) => (
-							<li
-								key={curr.id}
+				Next Shop
+			</h1>
+			<ul>
+				{
+					products.map((curr: IProductProps) => (
+						<li
+							key={curr.id}
+						>
+							<Link
+								href={`/products/${curr.id}`}
 							>
-								<Link
-									href={`/products/${curr.id}`}
-								>
-									{curr.title}
-								</Link>
-							</li>
-						))
-					}
-				</ul>
-			</main>
-		</>
-	)
-}
+								{curr.title}
+							</Link>
+						</li>
+					))
+				}
+			</ul>
+		</main>
+	</>
+)
 
 export default HomePage;

@@ -30,7 +30,7 @@ const HomePage = (): JSX.Element => {
 				</h1>
 				<ul>
 					{
-						products.map((curr) => (
+						products.map((curr: IProductProps) => (
 							<li
 								key={curr.id}
 							>
