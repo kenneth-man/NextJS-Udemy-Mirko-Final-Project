@@ -1,18 +1,18 @@
-// Option 1b: fetch products on the server side with Incremental Static Regeneration ISR
-// and with 'getStaticProps' and pre rendering
+// using option 1b in 'index-1b.tsx'
 import Head from 'next/head';
+import Link from 'next/link';
 import { GetStaticPropsResult } from 'next';
 import { getProducts } from '../lib/products';
 import { IProductProps, IHomePageProps } from '../models/interfaces';
 
-export const getStaticProps = async (): Promise<GetStaticPropsResult<IHomePageProps>> => {
+export const getStaticProps = async (): Promise<GetStaticPropsResult<IHomePageProps>>=> {
 	const products: IProductProps[] = await getProducts();
 
 	return {
 		props: {
 			products
 		},
-		revalidate: 300 // in production, fetches new data every 5 minutes
+		revalidate: 300
 	}
 }
 
@@ -36,7 +36,11 @@ const HomePage = ({ products }: IHomePageProps): JSX.Element => {
 							<li
 								key={curr.id}
 							>
-								{curr.title}
+								<Link
+									href={`/products/${curr.id}`}
+								>
+									{curr.title}
+								</Link>
 							</li>
 						))
 					}

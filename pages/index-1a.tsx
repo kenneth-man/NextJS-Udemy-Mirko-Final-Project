@@ -1,11 +1,10 @@
 // Option 1a: fetch products on the server side with 'getStaticProps' and pre rendering
 import Head from 'next/head';
+import { GetStaticPropsResult } from 'next';
 import { getProducts } from '../lib/products';
-import { IProductProps } from '../models/interfaces';
+import { IProductProps, IHomePageProps } from '../models/interfaces';
 
-export const getStaticProps = async (): Promise<
-	{ props: { products: IProductProps[] }}
-> => {
+export const getStaticProps = async (): Promise<GetStaticPropsResult<IHomePageProps>> => {
 	const products: IProductProps[] = await getProducts();
 
 	return {
@@ -15,9 +14,7 @@ export const getStaticProps = async (): Promise<
 	}
 }
 
-const HomePage = ({ products }: {
-	products: IProductProps[]
-}): JSX.Element => {
+const HomePage = ({ products }: IHomePageProps): JSX.Element => {
 	return (
 		<>
 			<Head>
