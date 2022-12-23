@@ -12,8 +12,7 @@ export const getStaticProps = async (): Promise<GetStaticPropsResult<IHomePagePr
 	return {
 		props: {
 			products
-		},
-		revalidate: 300
+		}
 	}
 }
 
