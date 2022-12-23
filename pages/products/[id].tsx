@@ -43,7 +43,7 @@ export const getStaticProps: GetStaticProps = async ({ params }): Promise<GetSta
 	}
 }
 
-const ProductPage = ({ product: { id, title }}: IProductPageProps): JSX.Element => (
+const ProductPage = ({ product: { id, title, description }}: IProductPageProps): JSX.Element => (
 	<>
 		<HeadTag
 			title="Product Page"
@@ -51,8 +51,10 @@ const ProductPage = ({ product: { id, title }}: IProductPageProps): JSX.Element 
 			content="This is the product page for an item in Next Shop"
 		/>
 		<main>
-			<h1>{title}</h1>
-			<p>{id}</p>
+			<h1>
+				<strong>{title}</strong> - [id_#{id}]
+			</h1>
+			<p>{description}</p>
 		</main>
 	</>
 		
